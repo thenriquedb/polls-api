@@ -5,11 +5,11 @@ import { prisma } from '../lib/prisma'
 
 export async function getPoll(app: FastifyInstance) {
   app.get("/polls/:pollId", async (request) => {
-    const params = z.object({
+    const getPollParams = z.object({
       pollId: z.string()
     });
 
-    const { pollId } = params.parse(request.params);
+    const { pollId } = getPollParams.parse(request.params);
 
     const poll = await prisma.poll.findFirst({
       where: { id: pollId, },

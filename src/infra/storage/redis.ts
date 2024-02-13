@@ -12,4 +12,4 @@ export class RedisSingleton {
   }
 }
 
-export type Redis = IoRedis
+export type IRedis = IoRedis

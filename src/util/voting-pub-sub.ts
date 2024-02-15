@@ -1,5 +1,5 @@
-type Message = { pollOptionId: string, votes: number };
-type Subscriber = (message: Message) => void;
+export type Message = { pollOptionId: string, votes: number };
+export type Subscriber = (message: Message) => void;
 
 export interface IVotingPubSub {
   subscribe(pollId: string, subscriber: Subscriber): void;
@@ -8,6 +8,7 @@ export interface IVotingPubSub {
 
 export class VotingPubSub implements IVotingPubSub {
   private channels: Record<string, Subscriber[]> = {};
+  private static instance: VotingPubSub;
 
   subscribe(pollId: string, subscriber: Subscriber) {
     if (!this.channels[pollId]) {
@@ -26,6 +27,13 @@ export class VotingPubSub implements IVotingPubSub {
       subscriber(message);
     }
   }
-}
 
+  static getInstance() {
+    if (!this.instance) {
+      this.instance = new VotingPubSub();
+    }
+
+    return this.instance;
+  }
+}
 export const votingPubSub = new VotingPubSub();

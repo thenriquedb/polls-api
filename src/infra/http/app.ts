@@ -9,11 +9,12 @@ import { AppError } from "../../util/app-error";
 import { GetPollController } from "./controllers/get-poll-controller";
 import { CreatePollController } from "./controllers/create-poll-controller";
 import { VoteOnPollController } from "./controllers/vote-on-poll-controller";
-import { getPollResults } from "./ws/get-poll-results";
+import { GetPollResultsController } from "./controllers/get-poll-results-controller";
 
 const getPollController = new GetPollController();
 const createPollController = new CreatePollController();
 const voteOnPollController = new VoteOnPollController();
+const getPollResultsController = new GetPollResultsController();
 
 type Constructor = {
   port: number;
@@ -66,7 +67,14 @@ export class App {
     this.app.post("/polls", createPollController.handle);
     this.app.get("/polls/:pollId", getPollController.handle);
     this.app.post("/polls/:pollId/votes", voteOnPollController.handle);
-    this.app.register(getPollResults);
+
+    this.app.register(async app => {
+      app.get(
+        "/polls/:pollId/results",
+        { websocket: true },
+        getPollResultsController.handle
+      );
+    })
   }
 
   run() {

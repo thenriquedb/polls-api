@@ -1,6 +1,6 @@
 # Polls
 
-A API de Enquetes em Tempo Real é uma aplicação simples desenvolvida durante o evento NLW Expert da Rocketseat, e posteriormente refatorada para aplicar os principais conceitos SOLID, visando melhorar a estrutura e organização da base de código. 
+A API de Enquetes é uma aplicação simples desenvolvida durante o evento NLW Expert da Rocketseat, e posteriormente refatorada para aplicar os principais conceitos SOLID, visando melhorar a estrutura e organização da base de código. 
 
 Esta API permite aos usuários criar enquetes e visualizar seus resultados em tempo real. 
 
